@@ -1,0 +1,131 @@
+<section class="grid">
+  <!-- Painel esquerdo -->
+  <mat-card class="panel left">
+    <h1>Regra de 3</h1>
+
+    <div class="hint">
+      <mat-icon>calculate</mat-icon>
+      <span>Direta, inversa e porcentagem</span>
+    </div>
+
+    <h3 class="mt">Como funciona?</h3>
+
+    <div class="table">
+      <div class="row header"><div>Tipo</div><div>Fórmula</div></div>
+
+      <div class="row">
+        <div>Direta</div>
+        <div><code>a : b = c : x ⇒ x = (b × c) ÷ a</code></div>
+      </div>
+
+      <div class="row">
+        <div>Inversa</div>
+        <div><code>a × x = b × c ⇒ x = (a × b) ÷ c</code></div>
+      </div>
+
+      <div class="row">
+        <div>%</div>
+        <div>
+          <div><code>p% de V ⇒ x = (p/100) × V</code></div>
+          <div><code>V é p% de X ⇒ X = V ÷ (p/100)</code></div>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      Dica: se as grandezas aumentam juntas → <strong>direta</strong>. Se uma aumenta e a outra diminui → <strong>inversa</strong>.
+    </p>
+  </mat-card>
+
+  <!-- Painel direito -->
+  <mat-card class="panel right">
+    <h2>Insira os valores</h2>
+
+    <div class="mode-switch">
+      <mat-button-toggle-group [(ngModel)]="mode" aria-label="Modo">
+        <mat-button-toggle value="direta">Direta</mat-button-toggle>
+        <mat-button-toggle value="inversa">Inversa</mat-button-toggle>
+        <mat-button-toggle value="percent">% porcentagem</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <!-- Direta / Inversa -->
+    <div class="form" *ngIf="mode !== 'percent'" [formGroup]="formRule">
+      <div class="inline-3">
+        <mat-form-field appearance="outline">
+          <mat-label>a</mat-label>
+          <input matInput #inputElement type="number" formControlName="a">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>b</mat-label>
+          <input matInput #inputElement type="number" formControlName="b">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>c</mat-label>
+          <input matInput #inputElement type="number" formControlName="c">
+        </mat-form-field>
+      </div>
+
+      <div class="schema">
+        <div class="pair">
+          <div>a</div><div>b</div>
+        </div>
+        <div class="pair">
+          <div>c</div><div>x</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+      </div>
+    </div>
+
+    <!-- Percentual -->
+    <div class="form" *ngIf="mode === 'percent'" [formGroup]="formPercent">
+      <div class="inline-3">
+        <mat-form-field appearance="outline">
+          <mat-label>% (p)</mat-label>
+          <input matInput #inputElement type="number" formControlName="p">
+          <span matSuffix>%</span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Valor (v)</mat-label>
+          <input matInput #inputElement type="number" formControlName="v">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <input matInput #inputElement [value]="formPercent.value.solve==='pDeV' ? 'p% de v' : 'v é p% de X'" readonly>
+          <span matSuffix>
+            <button mat-button type="button"
+              (click)="formPercent.patchValue({ solve: formPercent.value.solve==='pDeV' ? 'vEhPdeX' : 'pDeV' })">
+              Alternar
+            </button>
+          </span>
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+      </div>
+    </div>
+
+    <!-- Resultado -->
+    <div class="result">
+      <div class="badge total">
+        <span>Resultado</span>
+        <strong>{{ result.x !== '' ? result.x : '—' }}</strong>
+      </div>
+
+      <mat-card class="mini" *ngIf="result.steps.length">
+        <h4>Passo a passo</h4>
+        <ul>
+          <li *ngFor="let s of result.steps">{{ s }}</li>
+        </ul>
+      </mat-card>
+    </div>
+  </mat-card>
+</section>

@@ -1,0 +1,167 @@
+<section class="grid">
+  <!-- Painel esquerdo -->
+  <mat-card class="panel left">
+    <h1>VO₂ Máx (Estimativa)</h1>
+
+    <div class="hint">
+      <mat-icon>insights</mat-icon>
+      <span>Métodos populares de campo para estimar a capacidade aeróbica</span>
+    </div>
+
+    <!-- Tabela de referência (genérica) -->
+    <div class="table">
+      <div class="row header">
+        <div>VO₂ máx (ml/kg/min)</div>
+        <div>Interpretação</div>
+      </div>
+      <div class="row"><div>&lt; 25</div><div>Muito baixo</div></div>
+      <div class="row"><div>25 – 33</div><div>Baixo</div></div>
+      <div class="row"><div>34 – 42</div><div>Regular</div></div>
+      <div class="row"><div>43 – 49</div><div>Bom</div></div>
+      <div class="row"><div>50 – 54</div><div>Muito bom</div></div>
+      <div class="row"><div>≥ 55</div><div>Excelente</div></div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <div class="unit-switch">
+      <span>Unidade:</span>
+      <mat-button-toggle-group [(ngModel)]="unit" aria-label="Unidade">
+        <mat-button-toggle value="metric">Métrico</mat-button-toggle>
+        <mat-button-toggle value="imperial">Imperial</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </mat-card>
+
+  <!-- Painel direito -->
+  <mat-card class="panel right">
+    <h2>Insira os valores</h2>
+
+    <div class="mode-switch">
+      <mat-button-toggle-group [(ngModel)]="mode" aria-label="Método">
+        <mat-button-toggle value="cooper12">Cooper – 12 min</mat-button-toggle>
+        <mat-button-toggle value="cooper15">Cooper – 1,5 mi</mat-button-toggle>
+        <mat-button-toggle value="rockport">Rockport – 1 mi</mat-button-toggle>
+        <mat-button-toggle value="uth">Uth – FCmáx/FCrep</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <!-- Cooper 12 min -->
+    <div class="form" *ngIf="mode === 'cooper12'" [formGroup]="formCooper12">
+      <mat-form-field appearance="outline">
+        <mat-label>Distância em 12 min</mat-label>
+        <input matInput #inputElement type="number" formControlName="distance" min="1">
+        <span matSuffix>{{ unit === 'metric' ? 'm' : 'milhas' }}</span>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+      </div>
+    </div>
+
+    <!-- Cooper 1.5 mi -->
+    <div class="form" *ngIf="mode === 'cooper15'" [formGroup]="formCooper15">
+      <div class="inline-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Minutos*</mat-label>
+          <input matInput #inputElement type="number" formControlName="timeMin" min="1">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Segundos*</mat-label>
+          <input matInput #inputElement type="number" formControlName="timeSec" min="0" max="59">
+        </mat-form-field>
+      </div>
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+      </div>
+    </div>
+
+    <!-- Rockport -->
+    <div class="form" *ngIf="mode === 'rockport'" [formGroup]="formRockport">
+      <div class="inline-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Peso</mat-label>
+          <input matInput #inputElement type="number" formControlName="weight" min="1">
+          <span matSuffix>{{ unit === 'metric' ? 'kg' : 'lb' }}</span>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Idade</mat-label>
+          <input matInput #inputElement type="number" formControlName="age" min="10" max="99">
+        </mat-form-field>
+      </div>
+
+      <div class="inline-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Tempo (min)</mat-label>
+          <input matInput #inputElement type="number" formControlName="timeMin" min="1">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Tempo (seg)</mat-label>
+          <input matInput #inputElement type="number" formControlName="timeSec" min="0" max="59">
+        </mat-form-field>
+      </div>
+
+      <div class="inline-2">
+        <mat-form-field appearance="outline">
+          <mat-label>FC ao fim (bpm)</mat-label>
+          <input matInput #inputElement type="number" formControlName="hr" min="40" max="230">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sexo</mat-label>
+          <input matInput #inputElement [value]="(formRockport.value.gender==='male' ? 'Homem' : 'Mulher')" readonly>
+          <span matSuffix>
+            <button mat-button type="button"
+                    (click)="formRockport.patchValue({ gender: formRockport.value.gender==='male' ? 'female':'male' })">
+              {{ formRockport.value.gender==='male' ? 'Trocar p/ Mulher' : 'Trocar p/ Homem' }}
+            </button>
+          </span>
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+      </div>
+    </div>
+
+    <!-- Uth -->
+    <div class="form" *ngIf="mode === 'uth'" [formGroup]="formUth">
+      <div class="inline-2">
+        <mat-form-field appearance="outline">
+          <mat-label>FC máx (bpm)</mat-label>
+          <input matInput #inputElement type="number" formControlName="hrMax" min="80" max="240">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>FC repouso (bpm)</mat-label>
+          <input matInput #inputElement type="number" formControlName="hrRest" min="30" max="150">
+        </mat-form-field>
+      </div>
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+      </div>
+    </div>
+
+    <!-- Resultado -->
+    <div class="result">
+      <div class="badge">
+        <span>VO₂ máx</span>
+        <strong>{{ round(result.vo2, 1) }} ml/kg/min</strong>
+      </div>
+      <div class="badge">
+        <span>Classificação</span>
+        <mat-chip-set>
+          <mat-chip [color]="chipColor(result.label)" selected>{{ result.label || '—' }}</mat-chip>
+        </mat-chip-set>
+      </div>
+    </div>
+  </mat-card>
+</section>
+
+<section class="explain">
+  <h3>Como é calculado?</h3>
+  <p><strong>Cooper – 12 min:</strong> <code>VO₂max = (distância em metros − 504,9) ÷ 44,73</code>.</p>
+  <p><strong>Cooper – 1,5 mi:</strong> <code>VO₂max = 3,5 + 483 ÷ tempo(min)</code>.</p>
+  <p><strong>Rockport 1 mi (caminhada):</strong> <code>VO₂max = 132,853 − 0,0769×peso(lb) − 0,3877×idade + 6,315×sexo(1=H,0=M) − 3,2649×tempo(min) − 0,1565×FC</code>.</p>
+  <p><strong>Uth–Sørensen:</strong> <code>VO₂max = 15,3 × FCmáx ÷ FCrep</code>.</p>
+  <p>Os valores são estimativas de campo e podem variar por protocolo, idade e nível de treinamento.</p>
+</section>

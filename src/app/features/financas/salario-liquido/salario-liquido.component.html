@@ -1,0 +1,176 @@
+<section class="grid">
+  <!-- Painel esquerdo: tabelas/ajuda -->
+  <mat-card class="panel left">
+    <h1>Salário Líquido PRO — Brasil</h1>
+
+    <div class="hint">
+      <mat-icon>payments</mat-icon>
+      <span>CLT e PJ com férias, 13º, VT, pensão, plano e outros descontos.</span>
+    </div>
+
+    <h3 class="mt">INSS (progressivo)</h3>
+    <div class="table three">
+      <div class="row header">
+        <div>Faixa até</div><div>Alíquota</div><div>Obs.</div>
+      </div>
+      <div class="row" *ngFor="let f of INSS_TABLE; let i = index">
+        <div>{{ f.ceil }}</div>
+        <div>{{ (f.rate*100) | number:'1.0-2' }}%</div>
+        <div>{{ i === INSS_TABLE.length-1 ? 'Teto' : '' }}</div>
+      </div>
+    </div>
+
+    <h3 class="mt">IRRF</h3>
+    <div class="table three">
+      <div class="row header">
+        <div>Base ≥</div><div>Alíquota</div><div>Dedução</div>
+      </div>
+      <div class="row" *ngFor="let s of IRRF_TABLE">
+        <div>{{ s.thr }}</div>
+        <div>{{ (s.rate*100) | number:'1.0-2' }}%</div>
+        <div>{{ s.ded }}</div>
+      </div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <div class="info-note">
+      <mat-icon>info_outline</mat-icon>
+      <span>Dedução por dependente no IR: {{ DED_DEP }}</span>
+    </div>
+  </mat-card>
+
+  <!-- Painel direito: formulário + resultados -->
+  <mat-card class="panel right">
+    <h2>Configuração</h2>
+
+    <div class="mode-switch">
+      <mat-button-toggle-group [(ngModel)]="regime" aria-label="Regime">
+        <mat-button-toggle value="CLT">CLT</mat-button-toggle>
+        <mat-button-toggle value="PJ">PJ</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-slide-toggle [(ngModel)]="show13">Calcular 13º</mat-slide-toggle>
+    </div>
+
+    <form [formGroup]="form" class="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Salário bruto</mat-label>
+        <input matInput #inputElement type="number" formControlName="bruto" min="0">
+        <span matSuffix>R$</span>
+      </mat-form-field>
+
+      <div class="inline-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Dependentes</mat-label>
+          <input matInput #inputElement type="number" formControlName="dependentes" min="0">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Pensão</mat-label>
+          <input matInput #inputElement type="number" formControlName="pensao" min="0">
+          <span matSuffix>R$</span>
+        </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="regime==='CLT'">
+          <mat-label>VT (até 6%)</mat-label>
+          <input matInput #inputElement type="number" formControlName="vtPercent" min="0" max="6">
+          <span matSuffix>%</span>
+        </mat-form-field>
+      </div>
+
+      <div class="inline-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Plano de saúde</mat-label>
+          <input matInput #inputElement type="number" formControlName="planoSaude" min="0">
+          <span matSuffix>R$</span>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Outros descontos</mat-label>
+          <input matInput #inputElement type="number" formControlName="outros" min="0">
+          <span matSuffix>R$</span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" *ngIf="regime==='PJ'">
+          <mat-label>Taxa tributos/fees</mat-label>
+          <input matInput #inputElement type="number" formControlName="pjTaxaPercent" min="0" max="35">
+          <span matSuffix>%</span>
+        </mat-form-field>
+      </div>
+
+      <!-- CLT: férias -->
+      <div class="vacation" *ngIf="regime==='CLT'">
+        <mat-slide-toggle formControlName="mesFerias">Mês de férias</mat-slide-toggle>
+        <mat-form-field appearance="outline">
+          <mat-label>Dias de férias</mat-label>
+          <input matInput #inputElement type="number" formControlName="diasFerias" min="0" max="30">
+          <span matSuffix>dias</span>
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button color="primary" type="button" (click)="calcAll()">Calcular</button>
+      </div>
+    </form>
+
+    <!-- RESULTADOS -->
+    <div class="result">
+      <!-- CLT padrão -->
+      <mat-card class="mini" *ngIf="regime==='CLT'">
+        <h4>Mês padrão (CLT)</h4>
+        <ul>
+          <li><span>INSS</span><strong>{{ resPadrao?.inss }}</strong></li>
+          <li><span>IRRF</span><strong>{{ resPadrao?.irrf }}</strong></li>
+          <li><span>VT</span><strong>{{ resPadrao?.vt }}</strong></li>
+          <li><span>Plano</span><strong>{{ resPadrao?.plano }}</strong></li>
+          <li><span>Outros</span><strong>{{ resPadrao?.outros }}</strong></li>
+          <li><span>Pensão</span><strong>{{ resPadrao?.pensao }}</strong></li>
+        </ul>
+        <div class="total"><span>Líquido</span><strong>{{ resPadrao?.liquido }}</strong></div>
+      </mat-card>
+
+      <!-- Férias -->
+      <mat-card class="mini" *ngIf="regime==='CLT' && form.value.mesFerias">
+        <h4>Férias ({{ form.value.diasFerias }} dias + 1/3)</h4>
+        <ul>
+          <li><span>Provento férias</span><strong>{{ resFerias?.proventoFerias }}</strong></li>
+          <li><span>INSS</span><strong>{{ resFerias?.inss }}</strong></li>
+          <li><span>IRRF</span><strong>{{ resFerias?.irrf }}</strong></li>
+          <li><span>Plano</span><strong>{{ resFerias?.plano }}</strong></li>
+          <li><span>Outros</span><strong>{{ resFerias?.outros }}</strong></li>
+          <li><span>Pensão</span><strong>{{ resFerias?.pensao }}</strong></li>
+        </ul>
+        <div class="total"><span>Líquido</span><strong>{{ resFerias?.liquido }}</strong></div>
+      </mat-card>
+
+      <!-- 13º -->
+      <mat-card class="mini" *ngIf="regime==='CLT' && show13">
+        <h4>13º Salário</h4>
+        <ul>
+          <li><span>Bruto</span><strong>{{ res13?.bruto13 }}</strong></li>
+          <li><span>INSS</span><strong>{{ res13?.inss }}</strong></li>
+          <li><span>IRRF</span><strong>{{ res13?.irrf }}</strong></li>
+          <li><span>Pensão</span><strong>{{ res13?.pensao }}</strong></li>
+        </ul>
+        <div class="total"><span>Líquido</span><strong>{{ res13?.liquido }}</strong></div>
+      </mat-card>
+
+      <!-- PJ -->
+      <mat-card class="mini" *ngIf="regime==='PJ'">
+        <h4>PJ (estimado)</h4>
+        <ul>
+          <li><span>Taxa {{form.value.pjTaxaPercent}}%</span><strong>{{ resPJ?.taxa }}</strong></li>
+          <li><span>Plano</span><strong>{{ resPJ?.plano }}</strong></li>
+          <li><span>Outros</span><strong>{{ resPJ?.outros }}</strong></li>
+        </ul>
+        <div class="total"><span>Líquido</span><strong>{{ resPJ?.liquido }}</strong></div>
+      </mat-card>
+    </div>
+  </mat-card>
+</section>
+
+<section class="explain">
+  <h3>Como funciona?</h3>
+  <p><strong>CLT:</strong> calcula INSS progressivo, deduções por dependentes, pensão, vale-transporte (até 6% do bruto),
+    plano de saúde e outros descontos. Em <em>mês de férias</em>, aplica remuneração proporcional aos dias + 1/3 constitucional.
+    O 13º usa o bruto como base para uma prévia simples.</p>
+  <p><strong>PJ:</strong> aplica taxa (%) de tributos/fees informada + plano + outros descontos (estimativa rápida).</p>
+</section>

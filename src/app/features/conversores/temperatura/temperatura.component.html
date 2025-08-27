@@ -1,0 +1,55 @@
+<section class="grid">
+  <!-- Painel esquerdo -->
+  <mat-card class="panel left">
+    <h1>Conversor de Temperatura</h1>
+
+    <div class="hint">
+      <mat-icon>device_thermostat</mat-icon>
+      <span>Celsius ⇄ Fahrenheit ⇄ Kelvin</span>
+    </div>
+
+    <h3>Fórmulas principais</h3>
+    <div class="table">
+      <div class="row header"><div>Conversão</div><div>Fórmula</div></div>
+      <div class="row"><div>°C → °F</div><div><code>(°C × 9/5) + 32</code></div></div>
+      <div class="row"><div>°F → °C</div><div><code>(°F − 32) × 5/9</code></div></div>
+      <div class="row"><div>°C → K</div><div><code>°C + 273,15</code></div></div>
+      <div class="row"><div>K → °C</div><div><code>K − 273,15</code></div></div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      <strong>Celsius (°C)</strong> é usada no dia a dia.  
+      <strong>Fahrenheit (°F)</strong> é comum nos EUA.  
+      <strong>Kelvin (K)</strong> é a escala científica, começando no zero absoluto (−273,15 °C).
+    </p>
+  </mat-card>
+
+  <!-- Painel direito -->
+  <mat-card class="panel right">
+    <h2>Insira o valor</h2>
+
+    <div class="mode-switch">
+      <mat-button-toggle-group [(ngModel)]="from" aria-label="Unidade de origem">
+        <mat-button-toggle value="C">Celsius (°C)</mat-button-toggle>
+        <mat-button-toggle value="F">Fahrenheit (°F)</mat-button-toggle>
+        <mat-button-toggle value="K">Kelvin (K)</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Valor em {{ from }}</mat-label>
+      <input matInput #inputElement type="number" [(ngModel)]="value">
+    </mat-form-field>
+
+    <mat-card class="mini" *ngIf="results">
+      <h4>Resultados</h4>
+      <ul>
+        <li><span>Celsius</span><strong>{{ results.C }} °C</strong></li>
+        <li><span>Fahrenheit</span><strong>{{ results.F }} °F</strong></li>
+        <li><span>Kelvin</span><strong>{{ results.K }} K</strong></li>
+      </ul>
+    </mat-card>
+  </mat-card>
+</section>

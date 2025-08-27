@@ -1,0 +1,44 @@
+.navbar-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 8px 16px;
+
+    >.mat-mdc-button {
+        &:last-child {
+            margin-left: auto;
+        }
+    }
+
+    .active {
+        background: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+    }
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.container {
+  margin-top: 56px;
+  overflow-y: auto;
+}
+
+@media (max-width: 720px) {
+    .navbar {
+        display: flex;
+    }
+
+    .mat-toolbar-single-row {
+        height: auto !important ;
+    }
+}
+
+@media (max-width: 562px) {
+    .container {
+        margin-top: 92px;
+        overflow-y: visible;
+    }
+}

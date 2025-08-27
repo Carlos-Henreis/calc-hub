@@ -1,0 +1,65 @@
+:host { display: block; padding: clamp(12px, 2vw, 24px); }
+
+.grid {
+  display: grid; gap: 16px; align-items: start;
+  grid-template-columns: 1fr; max-width: 1200px; margin: 0 auto;
+}
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: 1.1fr 1fr; }
+}
+
+.panel {
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, .06);
+  padding: clamp(16px, 2vw, 20px);
+  background: #fff;
+}
+
+.left {
+  background: linear-gradient(180deg, #69b39b 0%, #5aa48d 100%);
+  color: #ffffff;
+  h1 { margin: 4px 0 12px; font-weight: 800; letter-spacing: .2px; }
+  .hint {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,0,0,.35); color: #fff; padding: 10px 12px;
+    border-radius: 8px; margin-bottom: 12px;
+  }
+  .table {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px 12px;
+    background: rgba(255,255,255,.06); padding: 12px; border-radius: 8px;
+    .th { font-weight: 700; opacity: .95; }
+  }
+}
+
+.right {
+  h2 { margin: 0 0 12px; font-weight: 800; }
+  .form { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 640px) { .form { grid-template-columns: 1fr; } }
+
+  .status .box {
+    margin: 8px 0 4px; padding: 12px; border-radius: 8px;
+    background: #fef9c3; color: #5c4b00; /* default mellow */
+    &.warn { background: #fff1f2; color: #7f1d1d; }
+    &.accent { background: #e0f2fe; color: #075985; }
+  }
+
+  .bottom {
+    display: flex; align-items: center; gap: 12px; justify-content: space-between; margin-top: 8px;
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(2,6,23,.08); padding: 8px 10px; border-radius: 8px;
+      background: #f8fafc;
+      strong { font-size: 1.1rem; }
+    }
+  }
+}
+
+.explain {
+  max-width: 1200px; margin: 18px auto 0; padding: 0 clamp(12px, 2vw, 24px);
+  h3 { margin: 0 0 6px; font-weight: 800; }
+  p { color: #334155; }
+  .formula {
+    background: #f1f5f9; border: 1px solid #e2e8f0; padding: 8px 10px;
+    border-radius: 8px; display: inline-block; margin: 6px 0 10px;
+  }
+}

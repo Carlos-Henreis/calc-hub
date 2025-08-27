@@ -1,0 +1,12 @@
+# Indica quais bots podem rastrear
+User-agent: *
+
+# Permite tudo
+Allow: /
+
+# Bloqueia paths técnicos (se quiser)
+Disallow: /assets/
+Disallow: /api/
+
+# Sitemap ajuda o Google a encontrar todas as rotas
+Sitemap: https://www.hubcalc.cahenre.com/sitemap.xml

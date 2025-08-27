@@ -1,0 +1,75 @@
+<section class="grid">
+  <!-- Painel esquerdo: título + tabela -->
+  <mat-card class="panel left">
+    <h1>CALCULAR IMC</h1>
+
+    <div class="hint">
+      <span>Veja a interpretação do IMC</span>
+    </div>
+
+    <div class="table">
+      <div class="th">IMC</div>
+      <div class="th">Classificação</div>
+      <div class="th">Obesidade (grau)</div>
+
+      <div>&lt; 16,0</div><div>Magreza grave</div><div>—</div>
+      <div>16,0 – 18,4</div><div>Magreza</div><div>—</div>
+      <div>18,5 – 24,9</div><div>Normal</div><div>—</div>
+      <div>25,0 – 29,9</div><div>Sobrepeso</div><div>I</div>
+      <div>30,0 – 34,9</div><div>Obesidade I</div><div>I</div>
+      <div>35,0 – 39,9</div><div>Obesidade II</div><div>II</div>
+      <div>≥ 40,0</div><div>Obesidade III</div><div>III</div>
+    </div>
+  </mat-card>
+
+  <!-- Painel direito: formulário + resultado -->
+  <mat-card class="panel right" [formGroup]="form">
+    <h2>Insira os valores</h2>
+
+    <div class="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Peso</mat-label>
+        <input matInput #inputElement type="number" formControlName="pesoKg" min="1">
+        <span matSuffix>kg</span>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Altura</mat-label>
+        <input matInput #inputElement type="number" step="0.01" formControlName="alturaM" min="0.3">
+        <span matSuffix>m</span>
+      </mat-form-field>
+    </div>
+
+    <div class="status" *ngIf="result.label">
+      <div class="box" [class.warn]="chipColor()==='warn'" [class.accent]="chipColor()==='accent'">
+        {{ result.label === 'Normal' ? 'IMC dentro do normal' :
+           result.label.startsWith('Magreza') ? 'Atenção: abaixo do peso' :
+           'Está com ' + result.label.toLowerCase() }}
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="badge">
+        <span>Seu IMC:</span>
+        <strong>{{ round(result.bmi, 2) }}</strong>
+      </div>
+
+      <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+    </div>
+  </mat-card>
+</section>
+
+<!-- Seção explicativa -->
+<section class="explain">
+  <h3>Como o IMC é calculado?</h3>
+  <p>
+    O <strong>Índice de Massa Corporal (IMC)</strong> é calculado dividindo o peso (em kg) pela
+    <em>altura ao quadrado</em> (em metros):
+  </p>
+  <p class="formula"><code>IMC = peso (kg) ÷ [altura (m)]²</code></p>
+  <p>
+    Exemplos: 80&nbsp;kg e 1,75&nbsp;m → 80 ÷ (1,75²) = 26,12. As faixas usadas acima seguem a
+    referência clássica (OMS) para adultos. O IMC não diferencia massa muscular de gordura e
+    pode ser menos preciso para atletas, gestantes e idosos.
+  </p>
+</section>

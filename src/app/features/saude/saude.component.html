@@ -1,0 +1,16 @@
+<main focusOnNavigation aria-label="Guide list" id="guide-list" class="docs-guide">
+  <div class="docs-guide-list">
+    @for (item of items; track item) {
+      <a class="docs-guide-item"
+        routerLink="{{item.url}}"
+        matRipple>
+        <mat-card class="docs-guide-card" appearance="outlined">
+          <mat-card-title>{{item.name}}</mat-card-title>
+          <mat-card-content class="docs-guide-card-summary">
+            {{item.overview}}
+          </mat-card-content>
+        </mat-card>
+      </a>
+    }
+  </div>
+</main>

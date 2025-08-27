@@ -1,0 +1,19 @@
+<mat-toolbar class="navbar-header">
+  <nav class="navbar">
+    <button mat-button routerLink="/">
+      <mat-icon>calculate</mat-icon>
+      Calculadoras Online
+    </button>
+  </nav>
+  <nav class="navbar">
+    @for (item of categories; track $index) {
+      <button mat-button routerLink="/{{ item.route }}" routerLinkActive="active">
+        {{ item.name }}
+      </button>
+    }
+  </nav>
+</mat-toolbar>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
