@@ -11,6 +11,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
 import { TestStepperComponent } from './test-stepper/test-stepper.component';
 import { ResultDisplayComponent } from './result-display/result-display.component';
+import { ScreenService } from '../../../core/screen.service';
 
 
 @Component({
@@ -28,15 +29,18 @@ export class TesteEstiloComunicacaoComponent implements OnInit {
   resultForm!: FormGroup; 
   resultData?: any;
   step = 0;
+  orientation: 'horizontal' | 'vertical' = 'horizontal';
   @ViewChild('stepper') stepper!: MatStepper;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private screenService: ScreenService) {}
 
   ngOnInit(): void {
     this.welcomeForm = this.fb.group({ name: ['', Validators.required] });
     this.instructionForm = this.fb.group({ next: [false, Validators.requiredTrue] });
     this.testForm = this.fb.group({ completed: [false, Validators.requiredTrue] });
     this.resultForm = this.fb.group({ reviewed: [true] });
+    // Ajusta orientação do stepper se for mobile
+    this.orientation = this.screenService.isHandset() ? 'vertical' : 'horizontal';
   }
 
   startTest(): void {

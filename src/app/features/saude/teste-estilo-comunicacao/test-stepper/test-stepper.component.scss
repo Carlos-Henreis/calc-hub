@@ -29,3 +29,15 @@
     margin-top: 24px;
   }
 }
+
+
+@media screen and (max-width: 600px) {
+      .options-group {
+        flex-direction: column;
+
+        mat-radio-button {
+          width: 100%;
+          margin-bottom: 12px;
+        }
+      }
+    }
