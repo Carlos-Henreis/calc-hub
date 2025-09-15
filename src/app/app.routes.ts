@@ -87,7 +87,17 @@ export const routes: Routes = [
       schema: 'software'
     }
   },
-
+  {
+    'path': 'saude/estilo-comunicacao',
+    'loadComponent': () => import('./features/saude/teste-estilo-comunicacao/teste-estilo-comunicacao.component').then(m => m.TesteEstiloComunicacaoComponent),
+    'data': {
+      'title': 'Teste de Estilo de Comunicação (IPIP) – Descubra seu perfil',
+      'description': 'Avalie seu estilo de comunicação e receba dicas personalizadas. Baseado no modelo IPIP (Personality Item Pool).',
+      'keywords': ['estilo de comunicação','autoavaliação','dicas'],
+      'canonicalPath': '/saude/estilo-comunicacao',
+      'schema': 'webpage'
+    }
+  },
   // Matemática (lista)
   {
     path: 'matematica',

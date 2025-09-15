@@ -1,0 +1,105 @@
+<div class="home-container">
+  <mat-stepper #stepper linear>
+    <!-- 0: Introdução -->
+    <mat-step>
+      <ng-template matStepLabel>Instruções</ng-template>
+      <mat-card class="intro-card">
+        <mat-card-content>
+          <h2>Bem-vindo(a) ao Teste de Estilo de Comunicação!</h2>
+          <p>
+            Este teste irá ajudá-lo a entender melhor seu estilo de comunicação.
+            É baseado na avaliação IPIP (<a href="https://ipip.ori.org"
+              target="_blank">Personality Item Pool</a>)
+            e leva cerca de <strong>10-15 minutos</strong> para ser concluído.
+          </p>
+
+          <h3>Como responder</h3>
+          <ul>
+            <li><strong>1</strong> - Muito impreciso</li>
+            <li><strong>2</strong> - Um pouco impreciso</li>
+            <li><strong>3</strong> - Nem preciso nem impreciso</li>
+            <li><strong>4</strong> - Um pouco preciso</li>
+            <li><strong>5</strong> - Muito preciso</li>
+          </ul>
+
+          <div class="styles-preview">
+            <h3>4 Estilos Principais</h3>
+            <div class="style-item">
+              <span class="style-name">Expressivo Social</span>
+              <span class="style-desc">Carismático e colaborativo</span>
+            </div>
+            <div class="style-item">
+              <span class="style-name">Analítico Estruturado</span>
+              <span class="style-desc">Detalhista e organizado</span>
+            </div>
+            <div class="style-item">
+              <span class="style-name">Assertivo Direto</span>
+              <span class="style-desc">Objetivo e decidido</span>
+            </div>
+            <div class="style-item">
+              <span class="style-name">Harmonioso Adaptativo</span>
+              <span class="style-desc">Empático e flexível</span>
+            </div>
+          </div>
+
+          <div class="start-button">
+            <button mat-raised-button color="primary" class="btn-main" (click)="stepper.next()">
+              <mat-icon>play_arrow</mat-icon> Iniciar Teste
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-step>
+
+    <!-- 1: Boas-vindas -->
+    <mat-step [stepControl]="welcomeForm">
+      <form [formGroup]="welcomeForm">
+        <ng-template matStepLabel>Boas-vindas</ng-template>
+        <h2>Bem-vindo(a)!</h2>
+        <p>Informe seu nome para começar:</p>
+        <mat-form-field appearance="outline">
+          <mat-label>Seu nome</mat-label>
+          <input matInput formControlName="name" required>
+          <mat-error>Nome é obrigatório</mat-error>
+        </mat-form-field>
+        <div class="step-actions">
+          <button mat-button matStepperNext [disabled]="welcomeForm.invalid">
+            Próximo
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- 2: Instruções -->
+    <mat-step [stepControl]="instructionForm">
+      <ng-template matStepLabel>Instruções</ng-template>
+      <h2>Como responder</h2>
+      <p>
+        Use a escala de 1 (muito impreciso) a 5 (muito preciso).
+        Responda como realmente se comporta.
+        Descreva-se como você realmente é agora, não como gostaria de ser no futuro. Seja honesto(a) consigo mesmo(a). Para cada afirmação, indique o quão precisa ela é para descrever você
+      </p>
+      <div class="actions">
+        <button mat-button matStepperPrevious>Voltar</button>
+        <button mat-button (click)="startTest()">Iniciar
+          Teste</button>
+      </div>
+    </mat-step>
+
+    <!-- 3: Teste -->
+    <mat-step [stepControl]="testForm">
+      <ng-template matStepLabel>Teste</ng-template>
+      <app-test-stepper (complete)="onTestComplete($event)"></app-test-stepper>
+      <div class="actions">
+        <button mat-button matStepperPrevious>Voltar</button>
+        <!-- O próximo é chamado pelo onTestComplete -->
+      </div>
+    </mat-step>
+
+    <!-- 4: Resultado -->
+    <mat-step [stepControl]="resultForm">
+      <ng-template matStepLabel>Resultado</ng-template>
+      <app-result-display [resultData]="resultData" [userName]="welcomeForm.get('name')?.value"></app-result-display>
+    </mat-step>
+  </mat-stepper>
+</div>

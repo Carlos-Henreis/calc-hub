@@ -1,0 +1,31 @@
+.test-container {
+  max-width: 600px;
+  margin: 20px auto;
+
+  mat-card {
+    padding: 16px;
+  }
+
+  .question-text {
+    margin: 20px 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .options-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+
+    mat-radio-button {
+      width: 20%;
+      text-align: center;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+}

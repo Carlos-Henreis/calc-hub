@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 type Regime = 'CLT' | 'PJ';
@@ -21,7 +22,7 @@ type Regime = 'CLT' | 'PJ';
     CommonModule, FormsModule, ReactiveFormsModule,
     MatCardModule, MatFormFieldModule, MatInputModule,
     MatButtonModule, MatDividerModule, MatIconModule,
-    MatButtonToggleModule, MatChipsModule, MatSlideToggleModule
+    MatButtonToggleModule, MatChipsModule, MatSlideToggleModule, CurrencyMaskModule
   ],
   templateUrl: './salario-liquido.component.html',
   styleUrls: ['./salario-liquido.component.scss'],
@@ -30,8 +31,7 @@ type Regime = 'CLT' | 'PJ';
 export class SalarioLiquidoComponent {
   private fb = inject(FormBuilder);
 
-  // ========= ⚙️ PARÂMETROS (atualize com os oficiais vigentes) =========
-  // INSS progressivo (exemplo aproximado; substitua pelos números oficiais quando necessário)
+
   public readonly INSS_TABLE = [
     { ceil: 1412.00, rate: 0.075 },
     { ceil: 2666.68, rate: 0.09  },
@@ -54,19 +54,19 @@ export class SalarioLiquidoComponent {
   show13 = false;
 
   form = this.fb.group({
-    bruto: [7000, [Validators.required, Validators.min(0)]],
+    bruto: ['', [Validators.required, Validators.min(0)]],
     dependentes: [0, [Validators.required, Validators.min(0)]],
-    pensao: [0, [Validators.min(0)]],
-    vtPercent: [6, [Validators.min(0), Validators.max(6)]],      // % até 6
+    pensao: ['', [Validators.min(0)]],
+    vtPercent: [0, [Validators.min(0), Validators.max(6)]],      // % até 6
     planoSaude: [0, [Validators.min(0)]],
     outros: [0, [Validators.min(0)]],
 
     // férias (CLT)
     mesFerias: [false],
-    diasFerias: [30, [Validators.min(0), Validators.max(30)]],
+    diasFerias: [0, [Validators.min(0), Validators.max(30)]],
 
     // PJ
-    pjTaxaPercent: [12, [Validators.min(0), Validators.max(35)]], // taxa total estimada (%)
+    pjTaxaPercent: [0, [Validators.min(0), Validators.max(35)]], // taxa total estimada (%)
   });
 
   // ========= RESULTADOS =========

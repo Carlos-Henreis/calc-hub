@@ -1,0 +1,47 @@
+<div class="test-container">
+  <mat-card [ngStyle]="{'background-color': cardBgColor, 'color': fontColor}">
+    <mat-card-header>
+      <mat-card-title>
+        Questão {{ currentIndex + 1 }} de {{ totalItems }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="((currentIndex + 1) / totalItems) * 100">
+      </mat-progress-bar>
+
+      <div class="question-text">
+        {{ items[currentIndex].text }}
+      </div>
+
+      <mat-radio-group
+        class="options-group"
+        [(ngModel)]="currentScore"
+        aria-label="Pontuação">
+        <mat-radio-button
+          *ngFor="let n of scoresList"
+          [value]="n">
+          {{ n }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </mat-card-content>
+
+    <mat-card-actions class="actions">
+      <button
+        mat-button
+        (click)="previous()"
+        [disabled]="currentIndex === 0">
+        Anterior
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="next()"
+        [disabled]="currentScore === null">
+        {{ currentIndex + 1 === totalItems ? 'Finalizar' : 'Próximo' }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

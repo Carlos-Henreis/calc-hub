@@ -28,6 +28,12 @@ export class SaudeComponent {
       url: '/saude/imc'
     },
     {
+      id: 'estilo-comunicacao',
+      name: 'Teste de Estilo de Comunicação Empresarial',
+      overview: 'Avalie seu estilo de comunicação e receba dicas personalizadas. Baseado no modelo IPIP.',
+      url: '/saude/estilo-comunicacao'
+    },
+    {
       id: 'pace',
       name: 'Calculadora de Pace',
       overview: 'Calcule seu Pace (ritmo) em corridas e treinos.',

@@ -1,0 +1,101 @@
+<div class="certificate-container" id="resultDisplay">
+
+  <!-- Cabeçalho -->
+  <div class="certificate-header">
+    <h1>Meu Estilo de Comunicação</h1>
+    <h2>Olá <strong>{{ userName }}</strong></h2>
+    <p class="date">Data: {{ currentDate }}</p>
+  </div>
+
+  <div class="result-container">
+    <!-- Card Colorido Esquerdo -->
+    <div class="result-card">
+    <div class="style-header">
+      <h2>{{ resultData?.style?.name }}</h2>
+      <p class="style-description">{{ resultData?.style?.description }}</p>
+    </div>
+
+    <div class="characteristics-section">
+      <h3>Características Principais</h3>
+      <div class="characteristics-grid">
+        <div 
+          *ngFor="let char of resultData?.style?.characteristics" 
+          class="characteristic-item">
+          ✓ {{ char }}
+        </div>
+      </div>
+    </div>
+
+    <div class="scores-preview">
+      <h3>Seus Scores</h3>
+      <div class="score-bars">
+        <div class="score-item" *ngFor="let score of getScoreArray()">
+          <span class="score-label">{{ score.label }}</span>
+          <div class="score-bar">
+            <div class="score-fill" [style.width.%]="score.percentage"></div>
+          </div>
+          <span class="score-value">{{ score.value }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Painel Direito -->
+  <div class="details-panel">
+    <h3>Detalhes do Resultado</h3>
+    
+    <div class="strengths-section">
+      <h4>💪 Pontos Fortes</h4>
+      <ul>
+        <li *ngFor="let strength of resultData?.style?.strengths">
+          {{ strength }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="development-section">
+      <h4>🎯 Áreas de Desenvolvimento</h4>
+      <ul>
+        <li *ngFor="let area of resultData?.style?.developmentAreas">
+          {{ area }}
+        </li>
+      </ul>
+    </div>
+</div>
+  </div>
+
+  <!-- Rodapé -->
+  <div class="certificate-footer">
+    <div class="footer-text">
+      <p><em>Este teste é baseado na avaliação IPIP (Personality Item Pool).</em></p>
+    </div>
+    <div class="footer-qr">
+        <div>
+        <p>Descobri meu estilo de comunicação: {{ this.resultData?.style?.name }}! </p>
+
+        <p>Características: {{ this.resultData?.style?.characteristics?.join(', ') }}</p>
+
+        <p>Faça o teste você também:</p>
+        </div>
+      <qrcode [qrdata]="qrValue" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+  </div>
+</div>
+
+
+    <div class="action-buttons">
+      <button mat-flat-button color="primary" (click)="shareResult()">
+        <mat-icon>share</mat-icon>
+        Compartilhar
+      </button>
+      
+      <button mat-stroked-button (click)="downloadPDF()">
+        <mat-icon>download</mat-icon>
+        Baixar Imagem
+      </button>
+      
+      <button mat-button (click)="restart()">
+        <mat-icon>refresh</mat-icon>
+        Novo Teste
+      </button>
+    </div>

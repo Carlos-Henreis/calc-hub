@@ -56,8 +56,15 @@
     <form [formGroup]="form" class="form">
       <mat-form-field appearance="outline">
         <mat-label>Salário bruto</mat-label>
-        <input matInput #inputElement type="number" formControlName="bruto" min="0">
-        <span matSuffix>R$</span>
+        <span matTextPrefix>R$ &nbsp;</span>
+        <input 
+          matInput 
+          #inputElement 
+          type="text" 
+          formControlName="bruto" 
+          currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', precision: 2 }"
+          placeholder="Ex. 2.500,00"
+          >
       </mat-form-field>
 
       <div class="inline-3">
@@ -67,8 +74,8 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Pensão</mat-label>
-          <input matInput #inputElement type="number" formControlName="pensao" min="0">
-          <span matSuffix>R$</span>
+          <span matTextPrefix>R$ &nbsp;</span>
+          <input matInput currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', precision: 2 }" type="text" formControlName="pensao">
         </mat-form-field>
         <mat-form-field appearance="outline" *ngIf="regime==='CLT'">
           <mat-label>VT (até 6%)</mat-label>
