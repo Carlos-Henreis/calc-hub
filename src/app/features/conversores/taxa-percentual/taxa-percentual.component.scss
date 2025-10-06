@@ -1,0 +1,16 @@
+.converter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .arrow {
+    text-align: center;
+    color: #1976d2;
+
+    mat-icon {
+      font-size: 2rem;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}

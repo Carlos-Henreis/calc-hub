@@ -115,10 +115,54 @@ export const routes: Routes = [
     path: 'matematica/regra-3',
     loadComponent: () => import('./features/matematica/regra-3/regra-3.component').then(m => m.Regra3Component),
     data: {
-      title: 'Calculadora de Regra de 3 (Direta e Inversa)',
-      description: 'Resolva proporções no formato “A está para B, assim como C está para X”. Inclui passo a passo e modo inverso.',
-      keywords: ['regra de 3','proporção','direta','inversa','porcentagem'],
+      title: 'Calculadora de Regra de 3 (Direta, Inversa e Composta)',
+      description: 'Resolva proporções no formato "A está para B, assim como C está para X". Inclui passo a passo, modo inverso e regra de 3 composta.',
+      keywords: ['regra de 3','proporção','direta','inversa','composta','porcentagem'],
       canonicalPath: '/matematica/regra-3',
+      schema: 'software'
+    }
+  },
+  {
+    path: 'matematica/calculadora-cientifica',
+    loadComponent: () => import('./features/matematica/calculadora-cientifica/calculadora-cientifica.component').then(m => m.CalculadoraCientificaComponent),
+    data: {
+      title: 'Calculadora Científica Online',
+      description: 'Calculadora científica completa com operações aritméticas, potenciação, raízes, logaritmos e funções trigonométricas (sin, cos, tan).',
+      keywords: ['calculadora científica','trigonometria','logaritmo','raiz quadrada','potenciação','sin','cos','tan'],
+      canonicalPath: '/matematica/calculadora-cientifica',
+      schema: 'software'
+    }
+  },
+  {
+    path: 'matematica/equacao-2-grau',
+    loadComponent: () => import('./features/matematica/equacao-2-grau/equacao-2-grau.component').then(m => m.Equacao2GrauComponent),
+    data: {
+      title: 'Calculadora de Equação do 2º Grau (Bhaskara)',
+      description: 'Resolva equações do segundo grau ax² + bx + c = 0. Calcula delta, raízes reais e complexas, vértice da parábola com passo a passo.',
+      keywords: ['equação 2º grau','bhaskara','delta','raízes','parábola','vértice','matemática'],
+      canonicalPath: '/matematica/equacao-2-grau',
+      schema: 'software'
+    }
+  },
+  {
+    path: 'matematica/mmc-mdc',
+    loadComponent: () => import('./features/matematica/mmc-mdc/mmc-mdc.component').then(m => m.MmcMdcComponent),
+    data: {
+      title: 'Calculadora de MMC, MDC e Fatoração',
+      description: 'Calcule o Mínimo Múltiplo Comum (MMC), Máximo Divisor Comum (MDC) e fatoração em números primos de dois números.',
+      keywords: ['MMC','MDC','mínimo múltiplo comum','máximo divisor comum','fatoração','números primos'],
+      canonicalPath: '/matematica/mmc-mdc',
+      schema: 'software'
+    }
+  },
+  {
+    path: 'matematica/bases-numericas',
+    loadComponent: () => import('./features/matematica/bases-numericas/bases-numericas.component').then(m => m.BasesNumericasComponent),
+    data: {
+      title: 'Conversor de Bases Numéricas (Decimal, Binário, Octal, Hexadecimal)',
+      description: 'Converta números entre diferentes bases: decimal ↔ binário ↔ octal ↔ hexadecimal. Útil para programação e computação.',
+      keywords: ['conversor de bases','decimal','binário','octal','hexadecimal','base 2','base 8','base 10','base 16'],
+      canonicalPath: '/matematica/bases-numericas',
       schema: 'software'
     }
   },
@@ -144,6 +188,61 @@ export const routes: Routes = [
       description: 'Converta valores entre Celsius, Fahrenheit e Kelvin com fórmulas e explicação.',
       keywords: ['conversor de temperatura','celsius','fahrenheit','kelvin'],
       canonicalPath: '/conversores/temperatura',
+      schema: 'software'
+    }
+  },
+  {
+    path: 'conversores/unidades-medida',
+    loadComponent: () => import('./features/conversores/unidades-medida/unidades-medida.component').then(m => m.UnidadesMedidaComponent),
+    data: {
+      title: 'Conversor de Unidades de Medida',
+      description: 'Converta unidades de comprimento, massa, volume, área e velocidade. Metros, quilômetros, milhas, libras, litros, galões e muito mais.',
+      keywords: ['conversor de unidades','comprimento','massa','volume','área','velocidade','metros','quilômetros','milhas','libras'],
+      canonicalPath: '/conversores/unidades-medida',
+      schema: 'software'
+    }
+  },
+  {
+    path: 'conversores/tempo',
+    loadComponent: () => import('./features/conversores/tempo/tempo.component').then(m => m.TempoComponent),
+    data: {
+      title: 'Conversor de Tempo',
+      description: 'Converta unidades de tempo entre segundos, minutos, horas, dias, semanas, meses e anos.',
+      keywords: ['conversor de tempo','segundos','minutos','horas','dias','semanas','meses','anos'],
+      canonicalPath: '/conversores/tempo',
+      schema: 'software'
+    }
+  },
+  {
+    path: 'conversores/armazenamento',
+    loadComponent: () => import('./features/conversores/armazenamento/armazenamento.component').then(m => m.ArmazenamentoComponent),
+    data: {
+      title: 'Conversor de Armazenamento Digital',
+      description: 'Converta unidades de armazenamento digital: Bytes, KB, MB, GB, TB, PB. Suporta sistema binário (1024) e decimal (1000).',
+      keywords: ['conversor de armazenamento','bytes','KB','MB','GB','TB','binário','decimal','armazenamento digital'],
+      canonicalPath: '/conversores/armazenamento',
+      schema: 'software'
+    }
+  },
+  {
+    path: 'conversores/taxa-percentual',
+    loadComponent: () => import('./features/conversores/taxa-percentual/taxa-percentual.component').then(m => m.TaxaPercentualComponent),
+    data: {
+      title: 'Conversor de Taxa Percentual para Decimal',
+      description: 'Converta entre percentual e fator decimal. Ex: 12% ↔ 0.12. Útil para cálculos financeiros e estatísticos.',
+      keywords: ['conversor percentual','taxa percentual','fator decimal','porcentagem','decimal'],
+      canonicalPath: '/conversores/taxa-percentual',
+      schema: 'software'
+    }
+  },
+  {
+    path: 'conversores/notacao-cientifica',
+    loadComponent: () => import('./features/conversores/notacao-cientifica/notacao-cientifica.component').then(m => m.NotacaoCientificaComponent),
+    data: {
+      title: 'Conversor de Notação Científica',
+      description: 'Converta entre notação científica e decimal. Ex: 1.5 × 10³ ↔ 1500. Útil para física, química e astronomia.',
+      keywords: ['notação científica','conversor científico','mantissa','expoente','potência de 10'],
+      canonicalPath: '/conversores/notacao-cientifica',
       schema: 'software'
     }
   },

@@ -24,6 +24,11 @@
       </div>
 
       <div class="row">
+        <div>Composta</div>
+        <div><code>x = (b1÷a1) × (b2÷a2) × c</code></div>
+      </div>
+
+      <div class="row">
         <div>%</div>
         <div>
           <div><code>p% de V ⇒ x = (p/100) × V</code></div>
@@ -47,12 +52,49 @@
       <mat-button-toggle-group [(ngModel)]="mode" aria-label="Modo">
         <mat-button-toggle value="direta">Direta</mat-button-toggle>
         <mat-button-toggle value="inversa">Inversa</mat-button-toggle>
+        <mat-button-toggle value="composta">Composta</mat-button-toggle>
         <mat-button-toggle value="percent">% porcentagem</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
 
+    <!-- Composta -->
+    <div class="form" *ngIf="mode === 'composta'" [formGroup]="formCompound">
+      <div class="inline-3">
+        <mat-form-field appearance="outline">
+          <mat-label>a1</mat-label>
+          <input matInput type="number" formControlName="a1">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>b1</mat-label>
+          <input matInput type="number" formControlName="b1">
+        </mat-form-field>
+      </div>
+
+      <div class="inline-3">
+        <mat-form-field appearance="outline">
+          <mat-label>a2</mat-label>
+          <input matInput type="number" formControlName="a2">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>b2</mat-label>
+          <input matInput type="number" formControlName="b2">
+        </mat-form-field>
+      </div>
+
+      <div class="inline-3">
+        <mat-form-field appearance="outline">
+          <mat-label>c</mat-label>
+          <input matInput type="number" formControlName="c">
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+      </div>
+    </div>
+
     <!-- Direta / Inversa -->
-    <div class="form" *ngIf="mode !== 'percent'" [formGroup]="formRule">
+    <div class="form" *ngIf="mode === 'direta' || mode === 'inversa'" [formGroup]="formRule">
       <div class="inline-3">
         <mat-form-field appearance="outline">
           <mat-label>a</mat-label>

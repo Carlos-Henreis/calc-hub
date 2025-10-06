@@ -1,0 +1,61 @@
+<section class="grid">
+  <mat-card class="panel left">
+    <h1>Conversor de Taxa Percentual</h1>
+
+    <div class="hint">
+      <mat-icon>percent</mat-icon>
+      <span>Percentual ↔ Fator Decimal</span>
+    </div>
+
+    <h3 class="mt">Como funciona</h3>
+
+    <p>Converte entre representação percentual e fator decimal, muito útil em cálculos financeiros e estatísticos.</p>
+
+    <div class="table">
+      <div class="row header"><div>Percentual</div><div>Decimal</div><div>Uso</div></div>
+      <div class="row"><div>0%</div><div>0.0</div><div>Nenhum aumento/desconto</div></div>
+      <div class="row"><div>12%</div><div>0.12</div><div>Taxa de juros</div></div>
+      <div class="row"><div>25%</div><div>0.25</div><div>Um quarto</div></div>
+      <div class="row"><div>50%</div><div>0.5</div><div>Metade</div></div>
+      <div class="row"><div>100%</div><div>1.0</div><div>Dobro (base)</div></div>
+      <div class="row"><div>150%</div><div>1.5</div><div>Uma vez e meia</div></div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      <strong>Fórmula:</strong> decimal = percentual ÷ 100<br>
+      <strong>Inversa:</strong> percentual = decimal × 100
+    </p>
+  </mat-card>
+
+  <mat-card class="panel right">
+    <h2>Conversão</h2>
+
+    <div class="converter">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Percentual (%)</mat-label>
+        <input matInput type="number" [(ngModel)]="percentual" (ngModelChange)="onPercentualChange()">
+        <span matSuffix>%</span>
+      </mat-form-field>
+
+      <div class="arrow">
+        <mat-icon>sync_alt</mat-icon>
+      </div>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Fator Decimal</mat-label>
+        <input matInput type="number" [(ngModel)]="decimal" (ngModelChange)="onDecimalChange()" step="0.01">
+      </mat-form-field>
+    </div>
+
+    <mat-card class="mini">
+      <h4>Exemplos de uso</h4>
+      <ul>
+        <li>Calcular juros: valor × (1 + taxa_decimal)</li>
+        <li>Aplicar desconto: valor × (1 - taxa_decimal)</li>
+        <li>Aumento percentual: valor × taxa_decimal</li>
+      </ul>
+    </mat-card>
+  </mat-card>
+</section>

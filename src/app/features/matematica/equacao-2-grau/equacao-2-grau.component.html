@@ -1,0 +1,95 @@
+<section class="grid">
+  <mat-card class="panel left">
+    <h1>Equação do 2º Grau</h1>
+
+    <div class="hint">
+      <mat-icon>functions</mat-icon>
+      <span>ax² + bx + c = 0</span>
+    </div>
+
+    <h3 class="mt">Fórmula de Bhaskara</h3>
+
+    <div class="table">
+      <div class="row header"><div>Elemento</div><div>Fórmula</div></div>
+      <div class="row"><div>Delta (Δ)</div><div><code>Δ = b² - 4ac</code></div></div>
+      <div class="row"><div>Raízes</div><div><code>x = (-b ± √Δ) / 2a</code></div></div>
+      <div class="row"><div>Vértice</div><div><code>(-b/2a, -Δ/4a)</code></div></div>
+    </div>
+
+    <h3 class="mt">Tipos de raízes</h3>
+    <ul>
+      <li><strong>Δ > 0:</strong> Duas raízes reais distintas</li>
+      <li><strong>Δ = 0:</strong> Uma raiz real (raiz dupla)</li>
+      <li><strong>Δ < 0:</strong> Raízes complexas (não reais)</li>
+    </ul>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      O vértice da parábola é o ponto de máximo (se a < 0) ou mínimo (se a > 0).
+    </p>
+  </mat-card>
+
+  <mat-card class="panel right">
+    <h2>Insira os coeficientes</h2>
+
+    <div class="form" [formGroup]="form">
+      <div class="inline-3">
+        <mat-form-field appearance="outline">
+          <mat-label>a</mat-label>
+          <input matInput type="number" formControlName="a">
+          <span matSuffix>x²</span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>b</mat-label>
+          <input matInput type="number" formControlName="b">
+          <span matSuffix>x</span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>c</mat-label>
+          <input matInput type="number" formControlName="c">
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+      </div>
+    </div>
+
+    <div class="result" *ngIf="result.delta !== null">
+      <div class="badge">
+        <span>Delta (Δ)</span>
+        <strong>{{ result.delta }}</strong>
+      </div>
+
+      <div class="badge">
+        <span>Tipo</span>
+        <strong>{{ result.tipo }}</strong>
+      </div>
+
+      <div class="badge" *ngIf="result.x1">
+        <span>x₁</span>
+        <strong>{{ result.x1 }}</strong>
+      </div>
+
+      <div class="badge" *ngIf="result.x2 && result.x2 !== result.x1">
+        <span>x₂</span>
+        <strong>{{ result.x2 }}</strong>
+      </div>
+
+      <div class="badge" *ngIf="result.vertice">
+        <span>Vértice</span>
+        <strong>({{ result.vertice.x }}, {{ result.vertice.y }})</strong>
+      </div>
+
+      <mat-card class="mini" *ngIf="result.steps.length">
+        <h4>Passo a passo</h4>
+        <ul>
+          <li *ngFor="let s of result.steps">{{ s }}</li>
+        </ul>
+      </mat-card>
+    </div>
+  </mat-card>
+</section>

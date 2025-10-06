@@ -1,0 +1,76 @@
+<section class="grid">
+  <mat-card class="panel left">
+    <h1>Conversor de Notação Científica</h1>
+
+    <div class="hint">
+      <mat-icon>science</mat-icon>
+      <span>Notação Científica ↔ Decimal</span>
+    </div>
+
+    <h3 class="mt">O que é notação científica?</h3>
+
+    <p>É uma forma de escrever números muito grandes ou muito pequenos usando potências de 10:</p>
+    <p><strong>a × 10^n</strong></p>
+    <p>onde <strong>a</strong> (mantissa) está entre 1 e 10, e <strong>n</strong> (expoente) é um número inteiro.</p>
+
+    <div class="table">
+      <div class="row header"><div>Decimal</div><div>Notação Científica</div></div>
+      <div class="row"><div>1500</div><div>1.5 × 10³</div></div>
+      <div class="row"><div>0.00032</div><div>3.2 × 10⁻⁴</div></div>
+      <div class="row"><div>6.626 × 10⁻³⁴</div><div>Constante de Planck</div></div>
+      <div class="row"><div>3 × 10⁸</div><div>Velocidade da luz (m/s)</div></div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      Muito usada em física, química e astronomia para representar números extremamente grandes (distâncias astronômicas) ou pequenos (tamanho de átomos).
+    </p>
+  </mat-card>
+
+  <mat-card class="panel right">
+    <h2>Conversão</h2>
+
+    <div class="converter">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Valor Decimal</mat-label>
+        <input matInput type="number" [(ngModel)]="decimal" (ngModelChange)="onDecimalChange()" step="any">
+      </mat-form-field>
+
+      <div class="arrow">
+        <mat-icon>sync_alt</mat-icon>
+      </div>
+
+      <h3>Notação Científica</h3>
+      
+      <div class="scientific-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Mantissa (a)</mat-label>
+          <input matInput type="number" [(ngModel)]="mantissa" (ngModelChange)="onScientificChange()" step="0.1">
+        </mat-form-field>
+
+        <span class="times">×</span>
+
+        <span class="ten">10</span>
+
+        <mat-form-field appearance="outline" class="exponent">
+          <mat-label>Expoente (n)</mat-label>
+          <input matInput type="number" [(ngModel)]="exponent" (ngModelChange)="onScientificChange()">
+        </mat-form-field>
+      </div>
+
+      <div class="notation-display" *ngIf="scientificNotation">
+        <strong>{{ scientificNotation }}</strong>
+      </div>
+    </div>
+
+    <mat-card class="mini">
+      <h4>Regras</h4>
+      <ul>
+        <li>Mantissa deve estar entre 1 e 10 (ou -10 e -1 para negativos)</li>
+        <li>Expoente positivo: número grande (move vírgula para direita)</li>
+        <li>Expoente negativo: número pequeno (move vírgula para esquerda)</li>
+      </ul>
+    </mat-card>
+  </mat-card>
+</section>

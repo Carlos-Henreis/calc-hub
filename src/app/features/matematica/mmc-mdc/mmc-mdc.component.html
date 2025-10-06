@@ -1,0 +1,78 @@
+<section class="grid">
+  <mat-card class="panel left">
+    <h1>MMC, MDC e Fatoração</h1>
+
+    <div class="hint">
+      <mat-icon>tag</mat-icon>
+      <span>Mínimo Múltiplo Comum e Máximo Divisor Comum</span>
+    </div>
+
+    <h3 class="mt">Conceitos</h3>
+
+    <p><strong>MMC (Mínimo Múltiplo Comum):</strong> O menor número que é múltiplo de dois ou mais números.</p>
+    <p><strong>MDC (Máximo Divisor Comum):</strong> O maior número que divide dois ou mais números.</p>
+    <p><strong>Fatoração em Primos:</strong> Decomposição de um número em fatores primos.</p>
+
+    <h3 class="mt">Relação</h3>
+    <div class="table">
+      <div class="row header"><div>Propriedade</div><div>Fórmula</div></div>
+      <div class="row"><div>Relação MMC/MDC</div><div><code>MMC(a,b) × MDC(a,b) = a × b</code></div></div>
+      <div class="row"><div>MDC por Euclides</div><div><code>MDC(a,b) = MDC(b, a mod b)</code></div></div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      Dica: O MDC é útil para simplificar frações. O MMC é útil para somar frações com denominadores diferentes.
+    </p>
+  </mat-card>
+
+  <mat-card class="panel right">
+    <h2>Insira os números</h2>
+
+    <div class="form" [formGroup]="form">
+      <div class="inline-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Número 1</mat-label>
+          <input matInput type="number" formControlName="num1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Número 2</mat-label>
+          <input matInput type="number" formControlName="num2">
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="calc()">Calcular</button>
+      </div>
+    </div>
+
+    <div class="result" *ngIf="result.mmc !== null">
+      <div class="badge total">
+        <span>MMC (Mínimo Múltiplo Comum)</span>
+        <strong>{{ result.mmc }}</strong>
+      </div>
+
+      <div class="badge">
+        <span>MDC (Máximo Divisor Comum)</span>
+        <strong>{{ result.mdc }}</strong>
+      </div>
+
+      <mat-card class="mini">
+        <h4>Fatoração em Primos</h4>
+        <div class="factorization">
+          <p>{{ form.value.num1 }} = <mat-chip-set><mat-chip *ngFor="let f of result.fat1">{{ f }}</mat-chip></mat-chip-set></p>
+          <p>{{ form.value.num2 }} = <mat-chip-set><mat-chip *ngFor="let f of result.fat2">{{ f }}</mat-chip></mat-chip-set></p>
+        </div>
+      </mat-card>
+
+      <mat-card class="mini" *ngIf="result.steps.length">
+        <h4>Informações</h4>
+        <ul>
+          <li *ngFor="let s of result.steps">{{ s }}</li>
+        </ul>
+      </mat-card>
+    </div>
+  </mat-card>
+</section>

@@ -1,0 +1,110 @@
+:host {
+  display: block;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  &.left {
+    mat-card {
+      height: 100%;
+    }
+  }
+
+  &.right {
+    mat-card {
+      height: 100%;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.inline-2 {
+  display: flex;
+  gap: 1rem;
+  
+  mat-form-field {
+    flex: 1;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.result-card {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+
+  h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+  }
+
+  .result-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+
+  .step {
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    backdrop-filter: blur(10px);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.formula-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+
+  .row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.75rem 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    div:first-child {
+      font-weight: 500;
+      color: #666;
+    }
+
+    div:last-child {
+      color: #333;
+    }
+  }
+}

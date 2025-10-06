@@ -1,0 +1,73 @@
+<section class="grid">
+  <mat-card class="panel left">
+    <h1>Conversor de Unidades de Medida</h1>
+
+    <div class="hint">
+      <mat-icon>straighten</mat-icon>
+      <span>Comprimento, massa, volume, área e velocidade</span>
+    </div>
+
+    <h3 class="mt">Categorias disponíveis</h3>
+
+    <ul>
+      <li><strong>Comprimento:</strong> mm, cm, m, km, polegadas, pés, milhas</li>
+      <li><strong>Massa:</strong> mg, g, kg, libras, onças</li>
+      <li><strong>Volume:</strong> mL, L, m³, galões</li>
+      <li><strong>Área:</strong> m², km², hectares, acres</li>
+      <li><strong>Velocidade:</strong> m/s, km/h, mph</li>
+    </ul>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      Todas as conversões são feitas através de uma unidade base intermediária para garantir precisão.
+    </p>
+  </mat-card>
+
+  <mat-card class="panel right">
+    <h2>Selecione a categoria</h2>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Categoria</mat-label>
+      <mat-select [(ngModel)]="category" (selectionChange)="onCategoryChange()">
+        <mat-option value="comprimento">Comprimento</mat-option>
+        <mat-option value="massa">Massa</mat-option>
+        <mat-option value="volume">Volume</mat-option>
+        <mat-option value="area">Área</mat-option>
+        <mat-option value="velocidade">Velocidade</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="conversion-form">
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Valor</mat-label>
+        <input matInput type="number" [(ngModel)]="value">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>De</mat-label>
+        <mat-select [(ngModel)]="fromUnit">
+          <mat-option *ngFor="let unit of currentUnits" [value]="unit.key">
+            {{ unit.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Para</mat-label>
+        <mat-select [(ngModel)]="toUnit">
+          <mat-option *ngFor="let unit of currentUnits" [value]="unit.key">
+            {{ unit.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="result" *ngIf="result !== null">
+      <div class="badge total">
+        <span>Resultado</span>
+        <strong>{{ result }} {{ toUnit }}</strong>
+      </div>
+    </div>
+  </mat-card>
+</section>

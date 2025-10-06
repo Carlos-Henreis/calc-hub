@@ -1,0 +1,27 @@
+.calculator {
+  margin-top: 1rem;
+
+  .display {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: right;
+    font-size: 2rem;
+    font-family: monospace;
+    min-height: 3rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+
+    button {
+      min-height: 3rem;
+      font-size: 1.1rem;
+    }
+  }
+}

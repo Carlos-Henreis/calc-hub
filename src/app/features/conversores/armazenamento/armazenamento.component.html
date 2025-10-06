@@ -1,0 +1,66 @@
+<section class="grid">
+  <mat-card class="panel left">
+    <h1>Conversor de Armazenamento Digital</h1>
+
+    <div class="hint">
+      <mat-icon>storage</mat-icon>
+      <span>Bytes, KB, MB, GB, TB, PB</span>
+    </div>
+
+    <h3 class="mt">Sistemas de medida</h3>
+
+    <p><strong>Sistema Binário (base 1024):</strong> Usado por sistemas operacionais. 1 KB = 1024 bytes.</p>
+    <p><strong>Sistema Decimal (base 1000):</strong> Usado por fabricantes de discos. 1 KB = 1000 bytes.</p>
+
+    <div class="table">
+      <div class="row header"><div>Unidade</div><div>Binário (1024)</div><div>Decimal (1000)</div></div>
+      <div class="row"><div>1 KB</div><div>1024 B</div><div>1000 B</div></div>
+      <div class="row"><div>1 MB</div><div>1024 KB</div><div>1000 KB</div></div>
+      <div class="row"><div>1 GB</div><div>1024 MB</div><div>1000 MB</div></div>
+      <div class="row"><div>1 TB</div><div>1024 GB</div><div>1000 GB</div></div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      A diferença entre os sistemas explica por que um disco de 1 TB pode mostrar apenas ~931 GB no sistema operacional.
+    </p>
+  </mat-card>
+
+  <mat-card class="panel right">
+    <h2>Insira o valor</h2>
+
+    <mat-radio-group [(ngModel)]="system" class="system-selector">
+      <mat-radio-button value="binary">Binário (1024) - KiB, MiB, GiB</mat-radio-button>
+      <mat-radio-button value="decimal">Decimal (1000) - KB, MB, GB</mat-radio-button>
+    </mat-radio-group>
+
+    <div class="mode-switch">
+      <mat-button-toggle-group [(ngModel)]="from" aria-label="Unidade de origem">
+        <mat-button-toggle value="B">Bytes</mat-button-toggle>
+        <mat-button-toggle value="KB">KB</mat-button-toggle>
+        <mat-button-toggle value="MB">MB</mat-button-toggle>
+        <mat-button-toggle value="GB">GB</mat-button-toggle>
+        <mat-button-toggle value="TB">TB</mat-button-toggle>
+        <mat-button-toggle value="PB">PB</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Valor em {{ from }}</mat-label>
+      <input matInput type="number" [(ngModel)]="value">
+    </mat-form-field>
+
+    <mat-card class="mini" *ngIf="results">
+      <h4>Resultados ({{ systemLabel }})</h4>
+      <ul>
+        <li><span>Bytes (B)</span><strong>{{ results['B'] }}</strong></li>
+        <li><span>Kilobytes (KB)</span><strong>{{ results['KB'] }}</strong></li>
+        <li><span>Megabytes (MB)</span><strong>{{ results['MB'] }}</strong></li>
+        <li><span>Gigabytes (GB)</span><strong>{{ results['GB'] }}</strong></li>
+        <li><span>Terabytes (TB)</span><strong>{{ results['TB'] }}</strong></li>
+        <li><span>Petabytes (PB)</span><strong>{{ results['PB'] }}</strong></li>
+      </ul>
+    </mat-card>
+  </mat-card>
+</section>
