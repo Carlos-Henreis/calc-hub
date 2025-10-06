@@ -1,0 +1,59 @@
+<section class="grid">
+  <mat-card class="panel left">
+    <h1>Conversor de Tempo</h1>
+
+    <div class="hint">
+      <mat-icon>schedule</mat-icon>
+      <span>Segundos ↔ Minutos ↔ Horas ↔ Dias ↔ Anos</span>
+    </div>
+
+    <h3 class="mt">Equivalências</h3>
+
+    <div class="table">
+      <div class="row header"><div>Unidade</div><div>Em segundos</div></div>
+      <div class="row"><div>1 minuto</div><div>60 segundos</div></div>
+      <div class="row"><div>1 hora</div><div>3.600 segundos</div></div>
+      <div class="row"><div>1 dia</div><div>86.400 segundos</div></div>
+      <div class="row"><div>1 semana</div><div>604.800 segundos</div></div>
+      <div class="row"><div>1 mês</div><div>~2.592.000 segundos (30 dias)</div></div>
+      <div class="row"><div>1 ano</div><div>~31.536.000 segundos (365 dias)</div></div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      <strong>Nota:</strong> Os valores de mês e ano são aproximados, considerando 30 dias por mês e 365 dias por ano.
+    </p>
+  </mat-card>
+
+  <mat-card class="panel right">
+    <h2>Insira o valor</h2>
+
+    <div class="mode-switch">
+      <mat-button-toggle-group [(ngModel)]="from" aria-label="Unidade de origem">
+        <mat-button-toggle value="segundos">Segundos</mat-button-toggle>
+        <mat-button-toggle value="minutos">Minutos</mat-button-toggle>
+        <mat-button-toggle value="horas">Horas</mat-button-toggle>
+        <mat-button-toggle value="dias">Dias</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Valor em {{ from }}</mat-label>
+      <input matInput type="number" [(ngModel)]="value">
+    </mat-form-field>
+
+    <mat-card class="mini" *ngIf="results">
+      <h4>Resultados</h4>
+      <ul>
+        <li><span>Segundos</span><strong>{{ results.segundos }}</strong></li>
+        <li><span>Minutos</span><strong>{{ results.minutos }}</strong></li>
+        <li><span>Horas</span><strong>{{ results.horas }}</strong></li>
+        <li><span>Dias</span><strong>{{ results.dias }}</strong></li>
+        <li><span>Semanas</span><strong>{{ results.semanas }}</strong></li>
+        <li><span>Meses (aproximado)</span><strong>{{ results.meses }}</strong></li>
+        <li><span>Anos (aproximado)</span><strong>{{ results.anos }}</strong></li>
+      </ul>
+    </mat-card>
+  </mat-card>
+</section>

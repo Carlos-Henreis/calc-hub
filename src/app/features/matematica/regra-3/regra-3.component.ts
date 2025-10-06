@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 
-type Mode = 'direta' | 'inversa' | 'percent';
+type Mode = 'direta' | 'inversa' | 'percent' | 'composta';
 
 @Component({
   selector: 'app-regra-3',
@@ -36,6 +36,14 @@ export class Regra3Component {
     c: [5, [Validators.required]],
   });
 
+  formCompound = this.fb.group({
+    a1: [2, [Validators.required]],
+    b1: [10, [Validators.required]],
+    a2: [3, [Validators.required]],
+    b2: [15, [Validators.required]],
+    c: [6, [Validators.required]],
+  });
+
   // Percentual: “p% de v” ou “v é p% de x”
   formPercent = this.fb.group({
     p: [20, [Validators.required]], // percentual
@@ -52,6 +60,25 @@ export class Regra3Component {
 
   calc() {
     this.result = { x: '', steps: [] };
+
+    if (this.mode === 'composta') {
+      const { a1, b1, a2, b2, c } = this.formCompound.getRawValue();
+      const A1 = this.clean(a1), B1 = this.clean(b1);
+      const A2 = this.clean(a2), B2 = this.clean(b2), C = this.clean(c);
+
+      if (!A1 || !B1 || !A2 || !B2 || !C) return;
+
+      const x = (B1 / A1) * (B2 / A2) * C;
+      this.result.x = this.round(x);
+      this.result.steps = [
+        'Regra de 3 composta: multiplica as razões',
+        `x = (b1 ÷ a1) × (b2 ÷ a2) × c`,
+        `x = (${B1} ÷ ${A1}) × (${B2} ÷ ${A2}) × ${C}`,
+        `x = ${this.round(B1/A1, 4)} × ${this.round(B2/A2, 4)} × ${C}`,
+        `x = ${x}`
+      ];
+      return;
+    }
 
     if (this.mode === 'direta' || this.mode === 'inversa') {
       const { a, b, c } = this.formRule.getRawValue();

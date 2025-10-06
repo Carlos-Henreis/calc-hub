@@ -1,0 +1,75 @@
+<section class="grid">
+  <mat-card class="panel left">
+    <h1>Calculadora Científica</h1>
+
+    <div class="hint">
+      <mat-icon>calculate</mat-icon>
+      <span>Operações aritméticas e científicas</span>
+    </div>
+
+    <h3 class="mt">Funções disponíveis</h3>
+
+    <div class="table">
+      <div class="row header"><div>Função</div><div>Descrição</div></div>
+      <div class="row"><div>+, -, ×, ÷</div><div>Operações básicas</div></div>
+      <div class="row"><div>x²</div><div>Quadrado</div></div>
+      <div class="row"><div>√</div><div>Raiz quadrada</div></div>
+      <div class="row"><div>xʸ</div><div>Potenciação</div></div>
+      <div class="row"><div>sin, cos, tan</div><div>Funções trigonométricas (em graus)</div></div>
+      <div class="row"><div>log</div><div>Logaritmo base 10</div></div>
+      <div class="row"><div>ln</div><div>Logaritmo natural</div></div>
+      <div class="row"><div>1/x</div><div>Inverso</div></div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      Dica: As funções trigonométricas trabalham com graus. Para radianos, converta primeiro.
+    </p>
+  </mat-card>
+
+  <mat-card class="panel right">
+    <h2>Calculadora</h2>
+
+    <div class="calculator">
+      <div class="display">{{ display }}</div>
+
+      <div class="buttons">
+        <button mat-raised-button (click)="clear()">C</button>
+        <button mat-raised-button (click)="calculateScientific('inverse')">1/x</button>
+        <button mat-raised-button (click)="calculateScientific('square')">x²</button>
+        <button mat-raised-button (click)="calculateScientific('sqrt')">√</button>
+
+        <button mat-raised-button (click)="calculateScientific('sin')">sin</button>
+        <button mat-raised-button (click)="calculateScientific('cos')">cos</button>
+        <button mat-raised-button (click)="calculateScientific('tan')">tan</button>
+        <button mat-raised-button (click)="performOperation('^')">xʸ</button>
+
+        <button mat-raised-button (click)="calculateScientific('log')">log</button>
+        <button mat-raised-button (click)="calculateScientific('ln')">ln</button>
+        <button mat-raised-button (click)="inputDigit('(')">(</button>
+        <button mat-raised-button (click)="inputDigit(')')">)</button>
+
+        <button mat-raised-button (click)="inputDigit('7')">7</button>
+        <button mat-raised-button (click)="inputDigit('8')">8</button>
+        <button mat-raised-button (click)="inputDigit('9')">9</button>
+        <button mat-raised-button color="primary" (click)="performOperation('÷')">÷</button>
+
+        <button mat-raised-button (click)="inputDigit('4')">4</button>
+        <button mat-raised-button (click)="inputDigit('5')">5</button>
+        <button mat-raised-button (click)="inputDigit('6')">6</button>
+        <button mat-raised-button color="primary" (click)="performOperation('×')">×</button>
+
+        <button mat-raised-button (click)="inputDigit('1')">1</button>
+        <button mat-raised-button (click)="inputDigit('2')">2</button>
+        <button mat-raised-button (click)="inputDigit('3')">3</button>
+        <button mat-raised-button color="primary" (click)="performOperation('-')">-</button>
+
+        <button mat-raised-button (click)="inputDigit('0')">0</button>
+        <button mat-raised-button (click)="inputDecimal()">.</button>
+        <button mat-raised-button color="accent" (click)="performOperation('=')">=</button>
+        <button mat-raised-button color="primary" (click)="performOperation('+')">+</button>
+      </div>
+    </div>
+  </mat-card>
+</section>

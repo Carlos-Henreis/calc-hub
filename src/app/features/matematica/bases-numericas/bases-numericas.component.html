@@ -1,0 +1,58 @@
+<section class="grid">
+  <mat-card class="panel left">
+    <h1>Conversor de Bases Numéricas</h1>
+
+    <div class="hint">
+      <mat-icon>settings_ethernet</mat-icon>
+      <span>Decimal ↔ Binário ↔ Octal ↔ Hexadecimal</span>
+    </div>
+
+    <h3 class="mt">Sistemas de numeração</h3>
+
+    <div class="table">
+      <div class="row header"><div>Base</div><div>Dígitos</div><div>Exemplo</div></div>
+      <div class="row"><div>Decimal (10)</div><div>0-9</div><div>42</div></div>
+      <div class="row"><div>Binário (2)</div><div>0-1</div><div>101010</div></div>
+      <div class="row"><div>Octal (8)</div><div>0-7</div><div>52</div></div>
+      <div class="row"><div>Hexadecimal (16)</div><div>0-9, A-F</div><div>2A</div></div>
+    </div>
+
+    <mat-divider class="sep"></mat-divider>
+
+    <p class="note">
+      <strong>Dica:</strong> Em programação, binário é usado internamente pelos computadores, octal era comum em sistemas Unix antigos, e hexadecimal é muito usado para representar cores (ex: #FF5733) e endereços de memória.
+    </p>
+  </mat-card>
+
+  <mat-card class="panel right">
+    <h2>Insira o valor</h2>
+
+    <div class="mode-switch">
+      <mat-button-toggle-group [(ngModel)]="from" aria-label="Base de origem">
+        <mat-button-toggle value="decimal">Decimal</mat-button-toggle>
+        <mat-button-toggle value="binario">Binário</mat-button-toggle>
+        <mat-button-toggle value="octal">Octal</mat-button-toggle>
+        <mat-button-toggle value="hexadecimal">Hexadecimal</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>Valor em {{ from }}</mat-label>
+      <input matInput [(ngModel)]="value">
+    </mat-form-field>
+
+    <mat-card class="mini" *ngIf="results">
+      <h4>Resultados</h4>
+      <ul>
+        <li><span>Decimal (base 10)</span><strong>{{ results.decimal }}</strong></li>
+        <li><span>Binário (base 2)</span><strong>{{ results.binario }}</strong></li>
+        <li><span>Octal (base 8)</span><strong>{{ results.octal }}</strong></li>
+        <li><span>Hexadecimal (base 16)</span><strong>{{ results.hexadecimal }}</strong></li>
+      </ul>
+    </mat-card>
+
+    <mat-card class="mini" *ngIf="!results && value">
+      <p class="error">Valor inválido para a base selecionada.</p>
+    </mat-card>
+  </mat-card>
+</section>
