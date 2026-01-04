@@ -17,7 +17,7 @@ export type SeoRouteData = {
 export class SeoService {
   private readonly SITE = {
     name: 'Calculadoras Online',
-    defaultImage: 'https://www.hubcalc.cahenre.com/assets/og-default.png',
+    defaultImage: 'https://www.calchub.cahenre.com.br/og-default.png',
     twitter: '@seu_usuario'
   };
 
@@ -29,7 +29,7 @@ export class SeoService {
   ) {}
 
   apply(data: SeoRouteData) {
-    const origin = this.originUrl || 'https://www.hubcalc.cahenre.com';
+    const origin = this.originUrl || 'https://www.calchub.cahenre.com.br';
     const path   = data.canonicalPath ?? this.doc.location?.pathname ?? '/';
     const url    = new URL(path, origin).toString();
 

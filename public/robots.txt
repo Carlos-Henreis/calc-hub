@@ -9,4 +9,4 @@ Disallow: /assets/
 Disallow: /api/
 
 # Sitemap ajuda o Google a encontrar todas as rotas
-Sitemap: https://www.hubcalc.cahenre.com/sitemap.xml
+Sitemap: https://www.calchub.cahenre.com.br/sitemap.xml
