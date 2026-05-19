@@ -27,6 +27,12 @@ export class FinancasComponent {
       name: 'Calculadora de Salário Líquido',
       overview: 'Calcule seu salário líquido com base em descontos e impostos.',
       url: '/financas/salario-liquido'
+    },
+    {
+      id: 'juros-compostos',
+      name: 'Calculadora de Juros Compostos',
+      overview: 'Simule investimentos com aportes mensais e taxa de juros.',
+      url: '/financas/juros-compostos'
     }
   ];
 

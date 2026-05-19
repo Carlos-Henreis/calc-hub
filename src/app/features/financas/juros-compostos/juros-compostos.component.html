@@ -1,0 +1,35 @@
+<section class="juros-wrapper">
+  <mat-card>
+    <h1>Calculadora de Juros Compostos</h1>
+    <p>Simule crescimento de patrimônio com taxa mensal e aportes recorrentes.</p>
+
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Valor inicial (R$)</mat-label>
+        <input matInput type="number" [(ngModel)]="valorInicial" min="0">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Aporte mensal (R$)</mat-label>
+        <input matInput type="number" [(ngModel)]="aporteMensal" min="0">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Taxa mensal (%)</mat-label>
+        <input matInput type="number" [(ngModel)]="taxaMensal" step="0.01">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Período (meses)</mat-label>
+        <input matInput type="number" [(ngModel)]="periodoMeses" min="1">
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <mat-card class="resultado">
+    <h2>Resultado da simulação</h2>
+    <p><strong>Total investido:</strong> {{ asCurrency(totalInvestido) }}</p>
+    <p><strong>Juros acumulados:</strong> {{ asCurrency(jurosAcumulados) }}</p>
+    <p><strong>Montante final:</strong> {{ asCurrency(montanteFinal) }}</p>
+  </mat-card>
+</section>
