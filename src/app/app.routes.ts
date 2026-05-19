@@ -20,7 +20,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/financas/financas.component').then(m => m.FinancasComponent),
     data: {
       title: 'Calculadoras Financeiras',
-      description: 'Coleção de calculadoras financeiras para uso diário: salário líquido, juros e outras utilidades.',
+      description: 'Calculadoras relacionadas a finanças e investimentos. Inclui calculadoras para juros compostos, salário líquido e muito mais.',
       keywords: ['calculadora financeira','salário líquido','juros','INSS','IRRF'],
       canonicalPath: '/financas',
       schema: 'webpage'
@@ -39,13 +39,26 @@ export const routes: Routes = [
     }
   },
 
+  // Juros Compostos
+  {
+    path: 'financas/juros-compostos',
+    loadComponent: () => import('./features/financas/juros-compostos/juros-compostos.component').then(m => m.JurosCompostosComponent),
+    data: {
+      title: 'Calculadora de Juros Compostos com Aporte Mensal',
+      description: 'Simule investimento com juros compostos, valor inicial, aportes mensais, taxa e prazo. Veja total investido, juros e montante final.',
+      keywords: ['juros compostos','simulador de investimento','aporte mensal','montante final','rentabilidade'],
+      canonicalPath: '/financas/juros-compostos',
+      schema: 'software'
+    }
+  },
+
   // Saúde (lista)
   {
     path: 'saude',
     loadComponent: () => import('./features/saude/saude.component').then(m => m.SaudeComponent),
     data: {
       title: 'Calculadoras de Saúde',
-      description: 'Ferramentas de saúde e esporte: IMC, pace/ritmo, VO₂ máx. e outras.',
+      description: 'Calculadoras relacionadas à saúde, bem-estar e fitness. Inclui calculadoras para IMC, pace corrida e muito mais.',
       keywords: ['IMC','pace','ritmo','VO2max','corrida','saúde'],
       canonicalPath: '/saude',
       schema: 'webpage'
@@ -104,7 +117,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/matematica/matematica.component').then(m => m.MatematicaComponent),
     data: {
       title: 'Calculadoras de Matemática',
-      description: 'Regra de 3, porcentagem e outras calculadoras matemáticas rápidas e fáceis.',
+      description: 'Calculadoras relacionadas à matemática e ciências exatas. Inclui calculadoras de regra de 3, porcentagem e muito mais.',
       keywords: ['regra de 3','porcentagem','matemática'],
       canonicalPath: '/matematica',
       schema: 'webpage'
@@ -173,7 +186,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/conversores/conversores.component').then(m => m.ConversoresComponent),
     data: {
       title: 'Conversores',
-      description: 'Conversores práticos para o dia a dia: temperatura e mais.',
+      description: 'Calculadoras para conversão de unidades e medidas. Inclui conversores de moeda, temperatura e muito mais.',
       keywords: ['conversor','temperatura','unidades'],
       canonicalPath: '/conversores',
       schema: 'webpage'

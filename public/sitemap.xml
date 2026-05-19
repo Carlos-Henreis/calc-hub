@@ -19,6 +19,11 @@
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://www.calchub.cahenre.com.br/financas/juros-compostos</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
 
   <!-- Saúde -->
   <url>

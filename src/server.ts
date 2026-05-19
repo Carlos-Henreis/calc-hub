@@ -24,6 +24,14 @@ const commonEngine = new CommonEngine();
  * ```
  */
 
+app.get('*', (req, res, next) => {
+  if (req.path.length > 1 && req.path.endsWith('/')) {
+    const target = req.path.slice(0, -1) + (req.url.slice(req.path.length) || '');
+    return res.redirect(301, target);
+  }
+  next();
+});
+
 /**
  * Serve static files from /browser
  */
